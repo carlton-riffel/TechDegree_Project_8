@@ -1,5 +1,6 @@
 let employees;
-
+let modalHTML = "";
+let index = 0;
 function createNode(element)
 {
   return document.createElement(element);
@@ -76,27 +77,26 @@ const fullLocation = document.getElementById('location');
 const dob = document.getElementById('dob');
 const user = document.getElementById('username');
 
-function clickEmployees(employees) {
+function clickEmployees(e) {
   let cells = document.querySelectorAll('.box');
   cells.forEach(element => {
-      element.addEventListener('click', modalPopup);
+      element.addEventListener('click', e => modalPopup(index));
   });
 }
 
-function modalPopup(employees) {
-  employees.map(function(employee){
-let modalHTML = `
-          <img src="${employee.picture.medium}" alt="${employee.name.first}">
-          <h2 class="modalName">${employee.name.first.charAt(0).toUpperCase()}${employee.name.first.slice(1)}
-          ${employee.name.last.charAt(0).toUpperCase()}${employee.name.last.slice(1)}</h2>
+function modalPopup(e) {
+modalHTML = `
+          <img src="${employees[e].picture.medium}">
+          <h2 class="modalName">${employees[e].name.first.charAt(0).toUpperCase()}${employees[e].name.first.slice(1)}
+          ${employees[e].name.last.charAt(0).toUpperCase()}${employees[e].name.last.slice(1)}</h2>
       </div>
       `
-    });
+
   modal.innerHTML = modalHTML;
   modal.style.display = "block";
-}
-modal.style.display = "none";
 
+};
+modal.style.display = "none";
 
 fetch(url)
 .then((resp) => resp.json())
